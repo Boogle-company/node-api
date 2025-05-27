@@ -1,0 +1,23 @@
+//Felipe Maciel Scalco
+//RA: 2565838
+
+const fs = require('fs');
+const path = require('path');
+
+class Users {
+    constructor(filePath) {
+        this.filePath = filePath;
+    }
+
+    getSortedUsers() {
+        const data = fs.readFileSync(this.filePath, 'utf8');
+        const names = data.split('\n').map(n => n.trim()).filter(n => n);
+        return names.sort();
+    }
+
+    getTopFiveUsers() {
+        return this.getSortedUsers().slice(0, 5);
+    }
+}
+
+module.exports = Users;
