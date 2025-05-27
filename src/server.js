@@ -1,6 +1,3 @@
-//Felipe Maciel Scalco
-//RA: 2565838
-
 const http = require('http')
 const fs = require('fs')
 
