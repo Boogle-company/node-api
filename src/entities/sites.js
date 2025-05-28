@@ -1,11 +1,11 @@
  const { connect } = require("../db/connection")
 
 class Site {
-    constructor(url, title, description, adminId, tagIds) {
+    constructor(url, title, description, userId, tagIds) {
         this.url = url
         this.title = title
         this.description = description
-        this.adminId = adminId
+        this.userId = userId
         this.tagIds = tagIds
     }
 
@@ -16,9 +16,9 @@ class Site {
                 url: this.url,
                 title: this.title,
                 description: this.description,
-                adminId: this.adminId,
+                userId: this.userId,
                 tagIds: this.tagIds,
-                createdAt: new Date(),
+                createdAt: new Date()
             })
             console.log("Site inserido:", result.insertedId)
             client.close()

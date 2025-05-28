@@ -23,12 +23,21 @@ async function insertTagTest() {
     await tag.insert()
 }
 
-async function insertSearchTest(params) {
+async function insertSearchTest() {
     const search = new Search(
         "bet365",
         "none"
     )
     await search.insert()
+}
+
+async function insertUserTest(){
+    const user = new user(
+        "Fulano",
+        "fulano@gmail.com",
+        "fulano123"
+    )
+    await user.insert()
 }
 // console.log("Teste de inserção do site: ")
 insertSiteTest()
@@ -36,4 +45,8 @@ insertSiteTest()
 // console.log("Teste de inserção do tag: ")
 insertTagTest()
 
+// console.log("Teste de inserção do search: ")
 insertSearchTest()
+
+// console.log("Teste de inserção do usuario: ")
+insertUserTest()
