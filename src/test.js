@@ -1,6 +1,7 @@
 console.log("Iniciando testes.")
 
 const Site = require("./entities/sites")
+const Tag = require("./entities/tags")
 
 async function insertSiteTest() {
     const site = new Site(
@@ -13,5 +14,16 @@ async function insertSiteTest() {
     await site.insert()
 }
 
-console.log("Teste de inserção do site: ")
+async function insertTagTest() {
+    const tag = new Tag(
+        "educação",
+        "educacao",
+    )
+    await tag.insert()
+}
+
+// console.log("Teste de inserção do site: ")
 insertSiteTest()
+
+// console.log("Teste de inserção do tag: ")
+insertTagTest()

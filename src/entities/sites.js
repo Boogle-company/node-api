@@ -1,4 +1,4 @@
-const { connect } = require("../db/connection")
+ const { connect } = require("../db/connection")
 
 class Site {
     constructor(url, title, description, adminId, tagIds) {
