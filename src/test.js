@@ -2,6 +2,7 @@ console.log("Iniciando testes.")
 
 const Site = require("./entities/sites")
 const Tag = require("./entities/tags")
+const Search = require("./entities/searches")
 
 async function insertSiteTest() {
     const site = new Site(
@@ -22,8 +23,17 @@ async function insertTagTest() {
     await tag.insert()
 }
 
+async function insertSearchTest(params) {
+    const search = new Search(
+        "bet365",
+        "none"
+    )
+    await search.insert()
+}
 // console.log("Teste de inserção do site: ")
 insertSiteTest()
 
 // console.log("Teste de inserção do tag: ")
 insertTagTest()
+
+insertSearchTest()
