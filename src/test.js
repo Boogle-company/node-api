@@ -3,6 +3,7 @@ console.log("Iniciando testes.")
 const Site = require("./entities/sites")
 const Tag = require("./entities/tags")
 const Search = require("./entities/searches")
+const User = require("./entities/users")
 
 async function insertSiteTest() {
     const site = new Site(
@@ -32,21 +33,22 @@ async function insertSearchTest() {
 }
 
 async function insertUserTest(){
-    const user = new user(
+    const user = new User(
         "Fulano",
         "fulano@gmail.com",
         "fulano123"
     )
     await user.insert()
 }
-// console.log("Teste de inserção do site: ")
+
+// Teste de inserção do site
 insertSiteTest()
 
-// console.log("Teste de inserção do tag: ")
+// Teste de inserção do tag
 insertTagTest()
 
-// console.log("Teste de inserção do search: ")
+// Teste de inserção do search
 insertSearchTest()
 
-// console.log("Teste de inserção do usuario: ")
+// Teste de inserção do usuario
 insertUserTest()
