@@ -27,7 +27,7 @@ async function insertTagTest() {
 async function insertSearchTest() {
     const search = new Search(
         "bet365",
-        "none"
+        ["1", "2"]
     )
     await search.insert()
 }

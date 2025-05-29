@@ -1,11 +1,9 @@
 const { connect } = require("../db/connection");
 
 class Search {
-    constructor(query, filters = {}) {
+    constructor(query, siteIds = {}) {
         this.query = query;
-        this.filters = filters;
-        this.results = [];
-        this.executionTime = 0;
+        this.siteIds = siteIds;
     }
 
     async insert() {
@@ -13,10 +11,8 @@ class Search {
             const { db, client } = await connect();
             const result = await db.collection("searches").insertOne({
                 query: this.query,
-                filters: this.filters,
-                results: this.results,
-                executionTime: this.executionTime,
-                timestamp: new Date()
+                siteIds: this.siteIds,
+                createAt: new Date()
             });
             console.log("Busca registrada: ", result.insertedId);
             client.close();
