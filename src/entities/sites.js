@@ -24,7 +24,7 @@ class Site {
             console.log("Site inserido:", result.insertedId)
             client.close()
         } catch (error) {
-            console.log("Erro ao inserir site:", error)
+            Logger.log("Erro ao inserir site:", error)
         }
     }
 
@@ -42,7 +42,7 @@ class Site {
         }
     }
 
-    static async search(filtro = {}) {
+    static async find(filtro = {}) {
         try {
             const { db, client } = await connect();
             const sites = await
