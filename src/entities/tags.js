@@ -1,4 +1,5 @@
 const { connect } = require("../db/connection")
+const Logger = require("../logger")
 
 class Tag {
     constructor(name, slug) {
@@ -16,7 +17,7 @@ class Tag {
             console.log("Tag inserida: ", result.insertedId);
             client.close();
         } catch (error) {
-            console.log("Erro ao inserir tag: ", error);
+            Logger.log("Erro ao inserir tag: ", error);
         }
     }
 
