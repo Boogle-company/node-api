@@ -25,7 +25,7 @@ async function testSites() {
 
     console.log("Sites depois do INSERT")
 
-    await Site.search()
+    await Site.find()
 
     console.log("====================================================================================\n")
 
@@ -41,7 +41,7 @@ async function testSites() {
 
     console.log("\nSites depois do UPDATE")
 
-    await Site.search()
+    await Site.find()
 
     console.log("====================================================================================\n")
 
@@ -49,17 +49,52 @@ async function testSites() {
 
     console.log("\nSites depois do DELETE")
 
-    await Site.search()
+    await Site.find()
 
     console.log("====================================================================================")
 }
 
-async function insertTagTest() {
-    const tag = new Tag(
+async function testTags() {
+    const newTag = new Tag(
         "educação",
         "educacao",
     )
-    await tag.insert()
+
+    await newTag.insert()
+
+    const updateFilter = {
+        name: "educação"
+    }
+    const deleteFilter = {
+        name: "Matemática"
+    }
+
+    console.log("Tags depois do INSERT")
+
+    await Tag.find()
+
+    console.log("====================================================================================\n")
+
+    const updateTag = new Tag(
+        "Matemática",
+        "Matematica"
+    )
+
+    await Tag.update(updateFilter, updateTag)
+
+    console.log("\nTags depois do UPDATE")
+
+    await Tag.find()
+
+    console.log("====================================================================================\n")
+
+    await Tag.delete(deleteFilter)
+
+    console.log("\nTags depois do DELETE")
+
+    await Tag.find()
+
+    console.log("====================================================================================")
 }
 
 async function insertSearchTest() {
@@ -84,7 +119,7 @@ async function testBoogle() {
     await testSites()
 
     // Teste de inserção do tag
-    await insertTagTest()
+    await testTags()
 
     // Teste de inserção do search
     await insertSearchTest()
