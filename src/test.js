@@ -103,6 +103,39 @@ async function insertSearchTest() {
         ["1", "2"]
     )
     await search.insert()
+    const updateFilter = {
+        query: "bet365"
+    }
+    const deleteFilter = {
+        query: "Steam"
+    }
+
+    console.log("Searches depois do INSERT")
+
+    await Search.find()
+
+    console.log("====================================================================================\n")
+
+    const updateSearch = new Search(
+        "Steam",
+        "4"
+    )
+
+    await Search.update(updateFilter, updateSearch)
+
+    console.log("\nSearches depois do UPDATE")
+
+    await Search.find()
+
+    console.log("====================================================================================\n")
+
+    await Search.delete(deleteFilter)
+
+    console.log("\nSearches depois do DELETE")
+
+    await Search.find()
+
+    console.log("====================================================================================")
 }
 
 async function insertUserTest() {
