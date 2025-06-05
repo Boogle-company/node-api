@@ -1,4 +1,5 @@
 const { connect } = require("../db/connection");
+const Logger = require("../logger")
 
 class Search {
     constructor(query, siteIds = {}) {
@@ -18,6 +19,43 @@ class Search {
             client.close();
         } catch (error) {
             console.log("Erro ao registrar busca: ", error);
+        }
+    }
+    static async update(filtro, novosDados) {
+        try {
+            const { db, client } = await connect();
+            const result = await
+                db.collection("searches").updateMany(filtro, {
+                    $set: novosDados,
+                });
+            console.log("Searches atualizadas:", result.modifiedCount);
+            client.close();
+        } catch (error) {
+            Logger.log("Erro ao atualizar searches: " + error);
+        }
+    }
+
+    static async find(filtro = {}) {
+        try {
+            const { db, client } = await connect();
+            const sites = await
+                db.collection("searches").find(filtro).toArray();
+            console.log("Searches encontradas:", sites);
+            client.close();
+        } catch (error) {
+            Logger.log("Erro ao buscar searches: " + error);
+        }
+    }
+
+    static async delete(filtro) {
+        try {
+            const { db, client } = await connect();
+            const result = await
+                db.collection("searches").deleteMany(filtro);
+            console.log("Searches deletadas:", result.deletedCount);
+            client.close();
+        } catch (error) {
+            Logger.log("Erro ao deletar searches: " + error);
         }
     }
 }
