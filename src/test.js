@@ -145,6 +145,42 @@ async function insertUserTest() {
         "fulano123"
     )
     await user.insert()
+
+    const updateFilter={
+        name: "Fulano"
+    }
+
+    const deleteFilter={
+        name: "Ciclano"
+    }
+
+    console.log("Users depois do INSERT");
+
+    await User.find();
+
+    console.log("====================================================================================\n")
+    
+    const updateUser = new User(
+        "Ciclano",
+        "ciclanodasilva@gmail.com",
+        "123belt"
+    )
+
+    await User.update(updateFilter, updateUser)
+
+    console.log("Users depois do UPDATE");
+    
+    await User.find()
+
+    console.log("====================================================================================\n")
+
+    await User.delete(deleteFilter)
+
+    console.log("Users depois do DELETE");
+    
+    await User.find()
+    
+    console.log("====================================================================================\n")
 }
 
 async function testBoogle() {
