@@ -151,7 +151,7 @@ async function insertUserTest() {
     }
 
     const deleteFilter={
-        name: "Beltrano"
+        name: "Ciclano"
     }
 
     console.log("Users depois do INSERT");
@@ -161,8 +161,8 @@ async function insertUserTest() {
     console.log("====================================================================================\n")
     
     const updateUser = new User(
-        "Beltrano",
-        "beltranodasilva@gmail.com",
+        "Ciclano",
+        "ciclanodasilva@gmail.com",
         "123belt"
     )
 
