@@ -15,10 +15,10 @@ class Search {
                 siteIds: this.siteIds,
                 createAt: new Date()
             });
-            console.log("Busca registrada: ", result.insertedId);
+            console.log("Busca inserir: ", result.insertedId);
             client.close();
         } catch (error) {
-            console.log("Erro ao registrar busca: ", error);
+            Logger.log("Erro ao inserir busca: ", error);
         }
     }
     static async update(filtro, novosDados) {

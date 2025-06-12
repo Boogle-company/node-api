@@ -28,3 +28,8 @@
 [2025-06-03T21:05:28.274Z] - Erro ao buscar sites: MongoServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017
 [2025-06-03T21:05:38.720Z] - Erro ao inserir tag: 
 [2025-06-03T21:05:58.288Z] - Erro ao inserir tag: 
+[2025-06-12T23:26:05.491Z] - Erro ao inserir site:
+[2025-06-12T23:26:35.512Z] - Erro ao buscar sites: MongoServerSelectionError: connect ECONNREFUSED ::1:27018, connect ECONNREFUSED 127.0.0.1:27018
+[2025-06-12T23:27:05.529Z] - Erro ao atualizar sites: MongoServerSelectionError: connect ECONNREFUSED ::1:27018, connect ECONNREFUSED 127.0.0.1:27018
+[2025-06-12T23:27:35.553Z] - Erro ao buscar sites: MongoServerSelectionError: connect ECONNREFUSED ::1:27018, connect ECONNREFUSED 127.0.0.1:27018
+[2025-06-12T23:28:05.572Z] - Erro ao deletar sites: MongoServerSelectionError: connect ECONNREFUSED ::1:27018, connect ECONNREFUSED 127.0.0.1:27018
