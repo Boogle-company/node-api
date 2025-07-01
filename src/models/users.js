@@ -20,7 +20,7 @@ class User{
             console.log("Usuario inserido:", result.insertedId)
             client.close()
         }catch (error) {
-            console.log("Erro ao inserir usuario:", error)
+            Logger.log("Erro ao inserir usuario:", error)
         }
     }
 

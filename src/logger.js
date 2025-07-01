@@ -3,7 +3,7 @@ class Logger {
     static log(error) {
         const timestamp = new Date().toISOString();
         const message = `[${timestamp}] - ${error}\n`;
-        fs.appendFileSync("log.txt", message);
+        fs.appendFileSync("logs/log.txt", message);
     }
 }
 module.exports = Logger;

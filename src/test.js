@@ -1,9 +1,9 @@
 console.log("Iniciando testes.")
 
-const Site = require("./entities/sites")
-const Tag = require("./entities/tags")
-const Search = require("./entities/searches")
-const User = require("./entities/users")
+const Site = require("./models/sites")
+const Tag = require("./models/tags")
+const Search = require("./models/searches")
+const User = require("./models/users")
 
 async function testSites() {
     const newSite = new Site(
