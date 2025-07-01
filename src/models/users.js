@@ -1,16 +1,16 @@
 const { connect } = require("../db/connection")
-const Logger=require("../logger")
+const Logger = require("../logger")
 
-class User{
-    constructor (name, email, password){
+class User {
+    constructor(name, email, password) {
         this.name = name
         this.email = email
         this.password = password
     }
 
-    async insert(){
-        try{
-            const { db, client} = await connect()
+    async insert() {
+        try {
+            const { db, client } = await connect()
             const result = await db.collection("users").insertOne({
                 name: this.name,
                 email: this.email,
@@ -19,7 +19,7 @@ class User{
             })
             console.log("Usuario inserido:", result.insertedId)
             client.close()
-        }catch (error) {
+        } catch (error) {
             Logger.log("Erro ao inserir usuario:", error)
         }
     }
@@ -41,14 +41,15 @@ class User{
     static async find(filter = {}) {
         try {
             const { db, client } = await connect();
-            const users = await
-                db.collection("users").find(filter).toArray();
-            console.log("Usuarios encontrados:", users);
+            const users = await db.collection("users").find(filter).toArray();
             client.close();
+            return users;
         } catch (error) {
             Logger.log("Erro ao buscar usuario: " + error);
+            throw error;
         }
     }
+
 
     static async delete(filter) {
         try {
