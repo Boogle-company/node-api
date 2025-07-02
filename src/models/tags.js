@@ -12,9 +12,10 @@ class Tag {
             const { db, client } = await connect();
             const result = await db.collection("tags").insertOne({
                 name: this.name,
-                tag: this.tag,
+                slug: this.slug,
             });
-            console.log("Tag inserida: ", result.insertedId);
+            this._id = result.insertedId
+            console.log("Tag inserida: ", this._id);
             client.close();
         } catch (error) {
             Logger.log("Erro ao inserir tag: ", error);
@@ -40,8 +41,8 @@ class Tag {
             const { db, client } = await connect();
             const tags = await
                 db.collection("tags").find(filter).toArray();
-            console.log("Tags encontradas:", tags);
             client.close();
+            return tags
         } catch (error) {
             Logger.log("Erro ao buscar tags: " + error);
         }

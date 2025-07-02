@@ -21,7 +21,8 @@ class Site {
                 tagIds: this.tagIds,
                 createdAt: new Date()
             })
-            console.log("Site inserido:", result.insertedId)
+            this._id = result.insertedId
+            console.log("Site inserido:", this._id)
             client.close()
         } catch (error) {
             Logger.log("Erro ao inserir site:", error)
@@ -47,8 +48,8 @@ class Site {
             const { db, client } = await connect();
             const sites = await
                 db.collection("sites").find(filtro).toArray();
-            console.log("Sites encontrados:", sites);
             client.close();
+            return sites
         } catch (error) {
             Logger.log("Erro ao buscar sites: " + error);
         }
