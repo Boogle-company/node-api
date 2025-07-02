@@ -1,6 +1,9 @@
-const asyncHandler = require("express-async-handler");
 
-exports.home = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
-  // res.render("sites/home");
-});
+class SitesController {
+  async home(req, res, next) {
+    res.send("NOT IMPLEMENTED: Site Home Page");
+    // res.render("sites/home");
+  }
+}
+
+module.exports = new SitesController();
