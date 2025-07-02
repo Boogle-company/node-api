@@ -36,21 +36,26 @@ class AuthController {
   }
 
   async register(req, res) {
-  const { name, email, password } = req.body;
-
-  try {
-    const users = await authModel.find({ email });
-    if (users.length > 0) {
-      return res.render("register", { error: "E-mail já cadastrado!" });
+    if (req.method === "GET") {
+      return res.render("register");
     }
+    if (req.method === "POST") {
+        const { name, email, password } = req.body;
 
-    const newUser = new authModel(name, email, password);
-    await newUser.insert();
-    return res.render("register", { success: "Usuário registrado com sucesso!" });
-  } catch (error) {
-    return res.render("register", { error: "Erro ao cadastrar usuário. Tente novamente!" });
+        try {
+            const users = await authModel.find({ email });
+            if (users.length > 0) {
+            return res.render("register", { error: "E-mail já cadastrado!" });
+            }
+
+            const newUser = new authModel(name, email, password);
+            await newUser.insert();
+            return res.render("register", { success: "Usuário registrado com sucesso!" });
+        } catch (error) {
+            return res.render("register", { error: "Erro ao cadastrar usuário. Tente novamente!" });
+        }
+    }
   }
-}
 }
 
 module.exports = new AuthController();
