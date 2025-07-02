@@ -20,6 +20,10 @@ class SitesController {
       sites: sitesWithTags
     });
   }
+
+  async sitesAdmin(req, res, next) {
+    res.send("NOT IMPLEMENTED")
+  }
 }
 
 module.exports = new SitesController();
