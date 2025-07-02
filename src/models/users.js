@@ -17,7 +17,8 @@ class User {
                 password: this.password,
                 createdAt: new Date()
             })
-            console.log("Usuario inserido:", result.insertedId)
+            this._id = result.insertedId
+            console.log("Usuario inserido:", this._id)
             client.close()
         } catch (error) {
             Logger.log("Erro ao inserir usuario:", error)

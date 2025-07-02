@@ -15,7 +15,8 @@ class Search {
                 siteIds: this.siteIds,
                 createAt: new Date()
             });
-            console.log("Busca inserir: ", result.insertedId);
+            this._id = result.insertedId
+            console.log("Busca inserir: ", this._id);
             client.close();
         } catch (error) {
             Logger.log("Erro ao inserir busca: ", error);
@@ -40,8 +41,8 @@ class Search {
             const { db, client } = await connect();
             const sites = await
                 db.collection("searches").find(filtro).toArray();
-            console.log("Searches encontradas:", sites);
             client.close();
+            return sites
         } catch (error) {
             Logger.log("Erro ao buscar searches: " + error);
         }
