@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Sites - Boogle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/home/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="account-bar">
+            <a href="auth/login" class="account-btn">👤 Acessar Conta</a>
+        </div>
+
+        <header class="header">
+            <h1 class="logo">Boogle</h1>
+            <p class="subtitle">Seus sites na sua mão</p>
+        </header>
+
+        {{#if sites}}
+        <div class="sites-grid">
+            {{#each sites}}
+            <div class="site-card">
+                <div class="site-header">
+                    <div class="site-favicon">
+                        {{substring name 0 1}}
+                    </div>
+                    <div class="site-info">
+                        <h3>🌟 {{name}}</h3>
+                        <a href="{{url}}" class="site-url" target="_blank">🔗 {{url}}</a>
+                    </div>
+                </div>
+
+                {{#if description}}
+                <p class="site-description">📝 {{description}}</p>
+                {{/if}}
+
+                {{#if tags}}
+                <div class="site-tags">
+                    {{#each tags}}
+                    <span class="tag">#{{this}}</span>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                <div class="site-meta">
+                    <span>🆔 {{_id}}</span>
+                    <span>📅 {{formatDate createdAt}}</span>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        {{else}}
+        <div class="empty-state">
+            <div class="empty-icon">🎨</div>
+            <h2>🌈 Nenhum site encontrado!</h2>
+            <p>🚀 Que tal adicionar seu primeiro site colorido ao Boogle?</p>
+        </div>
+        {{/if}}
+    </div>
+</body>
+
+</html>

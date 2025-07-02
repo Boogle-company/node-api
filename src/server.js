@@ -11,6 +11,17 @@ app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "/views/templates"));
 hbs.registerPartials(path.join(__dirname, "/views/components"));
 
+// Register Handlebars helpers
+hbs.registerHelper("substring", function(str, start, end) {
+    if (!str) return "";
+    return str.substring(start, end);
+});
+
+hbs.registerHelper("formatDate", function(date) {
+    if (!date) return "";
+    return new Date(date).toLocaleDateString("pt-BR");
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded({ extended: false }));

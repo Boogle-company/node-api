@@ -3,36 +3,37 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Login / Cadastro</title>
+  <title>Login</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-  <header>
-    <h1>Boogle Access</h1>
-  </header>
+  <div class="container">
+    <header>
+      <h1><a href="/" class="logo">Boogle</a></h1>
+    </header>
 
-  <main class="auth-container">
-    <section class="auth-box">
-      <h2>Login</h2>
-      <div id="error-message" style="color: red;">
-        {{error}} <!-- Mensagem de erro dinâmica do backend -->
-      </div>
-      <form action="/login" method="POST">
-        <label for="email-login">E-mail</label>
-        <input type="email" id="email-login" name="email" placeholder="Digite seu e-mail" required />
+    <main class="auth-container">
+      <section class="auth-box">
+        <h2>Login</h2>
+        <div id="error-message" style="color: red;">
+          {{error}} <!-- Mensagem de erro dinâmica do backend -->
+        </div>
+        <form action="login" method="POST">
+          <label for="email-login">E-mail</label>
+          <input type="email" id="email-login" name="email" placeholder="Digite seu e-mail" required />
 
-        <label for="senha-login">Senha</label>
-        <input type="password" id="senha-login" name="password" placeholder="Digite sua senha" required />
+          <label for="senha-login">Senha</label>
+          <input type="password" id="senha-login" name="password" placeholder="Digite sua senha" required />
 
-        <button type="submit">Entrar</button>
-      </form>
-      <div>
-        <p>Não tenho cadastro!</p>
-        <a href="/register">Cadastra-se</a>
-      </div>
-    </section>
-  </main>
+          <button class="btn" type="submit">Entrar</button>
+        </form>
+        <div>
+          <p>Não tenho cadastro!</p>
+          <a href="register">Cadastra-se</a>
+        </div>
+      </section>
+    </main>
 </body>
 
 </html>
