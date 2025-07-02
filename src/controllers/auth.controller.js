@@ -27,7 +27,8 @@ class AuthController {
         }
 
         // Redireciona para uma página após login bem-sucedido
-        return res.redirect("/dashboard");
+        req.session.logado = true;
+        return res.redirect("/sites-admin");
       } catch (error) {
         // Trata erros gerais
         return res.render("login", { error: "Erro ao processar login. Tente novamente." });

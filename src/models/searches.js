@@ -22,6 +22,7 @@ class Search {
             Logger.log("Erro ao inserir busca: ", error);
         }
     }
+    
     static async update(filtro, novosDados) {
         try {
             const { db, client } = await connect();
