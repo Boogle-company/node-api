@@ -22,17 +22,18 @@ class SitesController {
     });
   }
 
-  get = async (req, res) => {
+  async sitesAdmin(req, res) {
     try {
-      const sites = await Site.find();
+      const user = req.session.user;
+      const sites = await Site.find({ userId: user._id });
 
-      res.render('sites-admin', { sitesJson: JSON.stringify(sites) });
+      res.render('sites-admin', { sitesJson: JSON.stringify(sites), user: user });
     } catch (error) {
       res.status(500).send('Erro ao buscar sites');
     }
   };
 
-  post = async (req, res) => {
+  async registerSite(req, res) {
     try {
       const { url, title, description, userId, tagIds } = req.body;
       const tagIdsArray = tagIds ? tagIds.split(',').map(t => t.trim()) : [];
@@ -47,21 +48,20 @@ class SitesController {
     }
   };
 
-  delete = async (req, res) => {
+  async deleteSite(req, res) {
     try {
       const id = req.params.id;
       if (!ObjectId.isValid(id)) {
         return res.status(400).json({ error: 'ID inválido' });
       }
 
-      const result = await Site.delete({ _id: objId });
-
+      const result = await Site.delete({ _id: new ObjectId(String(id)) });
+      res.status(200).json({ message: 'Site excluído com sucesso' });
     } catch (error) {
       console.error('Erro ao excluir site:', error);
       return res.status(500).json({ error: 'Erro interno do servidor' });
     }
   };
 }
-
 
 module.exports = new SitesController();

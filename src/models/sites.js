@@ -56,18 +56,15 @@ class Site {
     }
 
     static async delete(filtro) {
-        let client;
         try {
-            const { db, client: c } = await connect();
-            client = c;
-            const result = await db.collection("sites").deleteOne(filtro);
+            const { db, client } = await connect();
+            const result = await db.collection("sites").deleteMany(filtro);
             console.log("Sites deletados:", result.deletedCount);
+            client.close();
             return result;
         } catch (error) {
             Logger.log("Erro ao deletar sites: " + error);
             throw error;
-        } finally {
-            if (client) client.close();
         }
     }
 }

@@ -5,7 +5,7 @@
   <section class="auth-box">
     <h2>Adicionar Novo Site</h2>
     <form id="form-site" method="POST" action="/sites-admin">
-      <input type="hidden" name="userId" value="ID_DO_USUARIO_AQUI" />
+      <input type="hidden" name="userId" value="{{user._id}}" />
 
       <label for="title-site">Título do Site:</label>
       <input
@@ -103,6 +103,7 @@
 
   function atualizarLista(filtroTexto, filtroCampo) {
     const termo = filtroTexto.toLowerCase();
+    console.log(sites);
 
     const sitesFiltrados = sites.filter(site => {
       if (filtroCampo === 'title') {
