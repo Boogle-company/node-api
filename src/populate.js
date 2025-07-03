@@ -1,6 +1,5 @@
 const Site = require("./models/sites")
 const Tag = require("./models/tags")
-const Search = require("./models/searches")
 const User = require("./models/users")
 
 async function populate() {

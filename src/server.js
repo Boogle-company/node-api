@@ -1,10 +1,11 @@
 const hbs = require("hbs");
 const express = require("express");
 const path = require("path");
-const authRoutes = require("./routers/auth.route.js");
-const sitesRoutes = require("./routers/sites.route.js");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+
+const controllers = require("./controllers");
+const checkLogin = require("./middlewares");
 
 const app = express();
 const PORT = 3000;
@@ -37,8 +38,15 @@ app.use(
         })
 )
 
-app.use("/", sitesRoutes);
-app.use("/auth", authRoutes);
-app.use("/sites-admin", sitesRoutes);
+app.get("/auth/login", controllers.login);
+app.post("/auth/login", controllers.login);
+app.get("/auth/register", controllers.register);
+app.post("/auth/register", controllers.register);
+
+app.get("/", controllers.home);
+app.get("/sites-admin", checkLogin, controllers.sitesAdmin);
+app.post("/sites-admin", checkLogin, controllers.registerSite);
+app.delete("/sites-admin/:id", checkLogin, controllers.deleteSite);
+
 console.log(`Listen on http://localhost:${PORT}`);
 app.listen(PORT);
