@@ -1,5 +1,6 @@
 const Site = require("../models/sites")
 const Tag = require("../models/tags")
+const { ObjectId } = require('mongodb');
 
 class SitesController {
   async home(req, res, next) {
@@ -21,9 +22,46 @@ class SitesController {
     });
   }
 
-  async sitesAdmin(req, res, next) {
-    res.send("NOT IMPLEMENTED")
-  }
+  async sitesAdmin(req, res) {
+    try {
+      const user = req.session.user;
+      const sites = await Site.find({ userId: user._id });
+
+      res.render('sites-admin', { sitesJson: JSON.stringify(sites), user: user });
+    } catch (error) {
+      res.status(500).send('Erro ao buscar sites');
+    }
+  };
+
+  async registerSite(req, res) {
+    try {
+      const { url, title, description, userId, tagIds } = req.body;
+      const tagIdsArray = tagIds ? tagIds.split(',').map(t => t.trim()) : [];
+
+      const site = new Site(url, title, description, userId, tagIdsArray);
+      await site.insert();
+
+      res.redirect('/sites-admin');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Erro ao salvar site');
+    }
+  };
+
+  async deleteSite(req, res) {
+    try {
+      const id = req.params.id;
+      if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'ID inválido' });
+      }
+
+      const result = await Site.delete({ _id: new ObjectId(String(id)) });
+      res.status(200).json({ message: 'Site excluído com sucesso' });
+    } catch (error) {
+      console.error('Erro ao excluir site:', error);
+      return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  };
 }
 
 module.exports = new SitesController();

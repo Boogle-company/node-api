@@ -23,7 +23,7 @@ hbs.registerHelper("formatDate", function (date) {
     if (!date) return "";
     return new Date(date).toLocaleDateString("pt-BR");
 });
-
+hbs.registerPartials(path.join(__dirname, "views/templates/components"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -39,6 +39,6 @@ app.use(
 
 app.use("/", sitesRoutes);
 app.use("/auth", authRoutes);
-
+app.use("/sites-admin", sitesRoutes);
 console.log(`Listen on http://localhost:${PORT}`);
 app.listen(PORT);

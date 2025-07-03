@@ -11,5 +11,10 @@ router.get("/", (req, res) => {
 router.get("/sites-admin", checkLogin, (req, res) => {
   sitesController.sitesAdmin(req, res);
 });
-
+router.post("/sites-admin", checkLogin, (req, res) => {
+  sitesController.registerSite(req, res);
+});
+router.delete("/sites-admin/:id", checkLogin, (req, res) => {
+  sitesController.deleteSite(req, res);
+});
 module.exports = router;

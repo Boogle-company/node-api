@@ -28,6 +28,7 @@ class AuthController {
 
         // Redireciona para uma página após login bem-sucedido
         req.session.logado = true;
+        req.session.user = user;
         return res.redirect("/sites-admin");
       } catch (error) {
         // Trata erros gerais
