@@ -1,0 +1,170 @@
+{{> header}}
+
+<main class="dashboard-wrapper">
+  <!-- Formulário -->
+  <section class="auth-box">
+    <h2>Adicionar Novo Site</h2>
+    <form id="form-site" method="POST" action="/sites-admin">
+      <input type="hidden" name="userId" value="ID_DO_USUARIO_AQUI" />
+
+      <label for="title-site">Título do Site:</label>
+      <input
+        type="text"
+        id="title-site"
+        name="title"
+        required
+        placeholder="Ex: Google"
+      />
+
+      <label for="url-site">URL do Site:</label>
+      <input
+        type="text"
+        id="url-site"
+        name="url"
+        required
+        placeholder="https://www.exemplo.com"
+      />
+
+      <label for="description-site">Descrição:</label>
+      <input
+        type="text"
+        id="description-site"
+        name="description"
+        placeholder="Descrição do site"
+      />
+
+      <label for="tagIds-site">Tags (IDs separados por vírgula):</label>
+      <input
+        type="text"
+        id="tagIds-site"
+        name="tagIds"
+        placeholder="Ex: 1,2,3"
+      />
+
+      <button type="submit">Adicionar Site</button>
+    </form>
+  </section>
+
+  <!-- Lista de sites -->
+  <section class="auth-box sites-list-box">
+    <h2>Sites Salvos</h2>
+
+    <!-- Campo de pesquisa e filtro -->
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+      <input
+        type="text"
+        id="pesquisa-site"
+        placeholder="Pesquisar site..."
+        style="flex-grow: 1; padding: 8px;"
+      />
+
+      <select id="filtro-pesquisa" style="padding: 8px;">
+        <option value="title">Título</option>
+        <option value="url">URL</option>
+        <option value="tagIds">Tags (IDs)</option>
+      </select>
+    </div>
+
+    <div id="lista-sites"></div>
+  </section>
+</main>
+
+<script id="sites-data" type="application/json">
+  {{{sitesJson}}}
+</script>
+
+<script>
+  const campoPesquisa = document.getElementById('pesquisa-site');
+  const filtroPesquisa = document.getElementById('filtro-pesquisa');
+  const listaSites = document.getElementById('lista-sites');
+
+  let sites = JSON.parse(document.getElementById('sites-data').textContent);
+
+  async function excluirSite(siteId) {
+    if (!confirm('Tem certeza que deseja excluir este site?')) return;
+
+    try {
+      const response = await fetch(`/sites-admin/${siteId}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        sites = sites.filter(site => site._id !== siteId);
+        atualizarLista(campoPesquisa.value, filtroPesquisa.value);
+      } else {
+        const data = await response.json();
+        alert('Falha ao excluir o site: ' + (data.error || 'Erro desconhecido'));
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro ao excluir o site. Verifique sua conexão ou tente novamente.');
+    }
+  }
+
+  function atualizarLista(filtroTexto, filtroCampo) {
+    const termo = filtroTexto.toLowerCase();
+
+    const sitesFiltrados = sites.filter(site => {
+      if (filtroCampo === 'title') {
+        return site.title.toLowerCase().includes(termo);
+      } else if (filtroCampo === 'url') {
+        return site.url.toLowerCase().includes(termo);
+      } else if (filtroCampo === 'tagIds') {
+        const tags = Array.isArray(site.tagIds)
+          ? site.tagIds
+          : typeof site.tagIds === 'string'
+          ? site.tagIds.split(',').map(t => t.trim())
+          : [];
+        return tags.some(tag => tag.toLowerCase().includes(termo));
+      }
+      return false;
+    });
+
+    if (sitesFiltrados.length === 0) {
+      listaSites.innerHTML =
+        '<p style="font-style: italic; color: #777;">Nenhum site encontrado.</p>';
+      return;
+    }
+
+    listaSites.innerHTML = '';
+
+    sitesFiltrados.forEach(site => {
+      const div = document.createElement('div');
+      div.className = 'site-item';
+
+      const tagsFormatted = Array.isArray(site.tagIds)
+        ? site.tagIds.join(', ')
+        : typeof site.tagIds === 'string'
+        ? site.tagIds
+        : '';
+
+      div.innerHTML = `
+        <button class="btn-excluir" title="Excluir site">&times;</button>
+        <div class="site-info">
+          <strong>${site.title}</strong>
+          <a href="${site.url}" target="_blank">${site.url}</a>
+          <em>${site.description || ''}</em>
+          <small>Tags: ${tagsFormatted}</small>
+        </div>
+      `;
+
+      div.querySelector('.btn-excluir').addEventListener('click', () => {
+        excluirSite(site._id);
+      });
+
+      listaSites.appendChild(div);
+    });
+  }
+
+  campoPesquisa.addEventListener('input', () => {
+    atualizarLista(campoPesquisa.value, filtroPesquisa.value);
+  });
+
+  filtroPesquisa.addEventListener('change', () => {
+    atualizarLista(campoPesquisa.value, filtroPesquisa.value);
+  });
+
+  atualizarLista('', 'title');
+</script>
+
+{{> footer}}
